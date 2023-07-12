@@ -8,6 +8,7 @@ contract Lottery {
     address payable[] public players;
     address[] public winners;
     uint public lotteryId;
+    uint public lotteryStart;
 
     constructor() {
         //owner = lottery account (money pool)
@@ -15,6 +16,7 @@ contract Lottery {
         // ownerFeeAdress = creators fee account
         ownerFeeAddress = address(0x64B9a8F7CC61DD98fa9a147e6034B3C855c11CE4);
         lotteryId = 0;
+        lotteryStart = block.timestamp;
     }
 
     //Enter function
@@ -24,6 +26,10 @@ contract Lottery {
             "At least 0.001 eth to enter lottery"
         );
 
+        //used to calculate 30days
+        uint thirtyDays = 30 days;
+        uint timestampForThirtyDays = lotteryStart + thirtyDays;
+
         uint ownerFee = (msg.value * 25) / 10000; //0.025% goes to the owner
         uint entryAmount = msg.value - ownerFee;
         payable(owner).transfer(entryAmount);
@@ -31,6 +37,9 @@ contract Lottery {
         payable(ownerFeeAddress).transfer(ownerFee);
 
         players.push(payable(msg.sender));
+        if (lotteryStart <= timestampForThirtyDays) {
+            pickWinner();
+        }
     }
 
     function getPlayers() public view returns (address payable[] memory) {
@@ -50,13 +59,16 @@ contract Lottery {
     }
 
     function pickWinner() public {
-        require(msg.sender == owner);
         uint randomIndex = getRandomNumber() % players.length;
         players[randomIndex].transfer(address(this).balance);
         winners.push(players[randomIndex]);
         lotteryId++;
-
+        lotteryStart = block.timestamp;
         delete players;
+    }
+
+    function checkTime() public view returns (uint) {
+        return lotteryStart;
     }
 
     function getWinners() public view returns (address[] memory) {
