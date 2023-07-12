@@ -4,12 +4,16 @@ pragma solidity 0.8.20;
 contract Lottery {
     //state
     address public owner;
+    address public ownerFeeAddress;
     address payable[] public players;
     address[] public winners;
     uint public lotteryId;
 
     constructor() {
+        //owner = lottery account (money pool)
         owner = msg.sender;
+        // ownerFeeAdress = creators fee account
+        ownerFeeAddress = address(0x64B9a8F7CC61DD98fa9a147e6034B3C855c11CE4);
         lotteryId = 0;
     }
 
@@ -19,6 +23,13 @@ contract Lottery {
             msg.value >= 0.001 ether,
             "At least 0.001 eth to enter lottery"
         );
+
+        uint ownerFee = (msg.value * 25) / 10000; //0.025% goes to the owner
+        uint entryAmount = msg.value - ownerFee;
+        payable(owner).transfer(entryAmount);
+
+        payable(ownerFeeAddress).transfer(ownerFee);
+
         players.push(payable(msg.sender));
     }
 
