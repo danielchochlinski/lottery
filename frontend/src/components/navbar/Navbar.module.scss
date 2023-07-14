@@ -1,0 +1,11 @@
+@import "../../App.scss";
+.container {
+  width: 100%;
+  border: 1px solid $primary-color;
+  border-radius: $primary-radius;
+  height: 60px;
+  box-sizing: border-box;
+  display: flex;
+
+  background: $primary-background-color;
+}

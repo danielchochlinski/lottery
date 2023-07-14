@@ -1,8 +1,16 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
+import MainTemplate from "./template/MainTemplate";
+import MainView from "./views/MainView/MainView";
 
 function App() {
-  return <div className="App">Hello World</div>;
+  return (
+    <div className="App">
+      <MainTemplate>
+        <MainView />
+      </MainTemplate>
+    </div>
+  );
 }
 
 export default App;
