@@ -26,18 +26,9 @@ contract Lottery {
             "At least 0.001 eth to enter lottery"
         );
 
-        //used to calculate 30days
-        uint thirtyDays = 30 days;
-        uint timestampForThirtyDays = lotteryStart + thirtyDays;
-
-        uint ownerFee = (msg.value * 25) / 10000; //0.025% goes to the owner
-        uint entryAmount = msg.value - ownerFee;
-        payable(owner).transfer(entryAmount);
-
-        payable(ownerFeeAddress).transfer(ownerFee);
-
         players.push(payable(msg.sender));
-        if (lotteryStart <= timestampForThirtyDays) {
+
+        if (block.timestamp >= lotteryStart + 30 days) {
             pickWinner();
         }
     }
@@ -58,10 +49,24 @@ contract Lottery {
         return uint(keccak256(abi.encodePacked(owner, block.timestamp)));
     }
 
-    function pickWinner() public {
+    function pickWinner() private {
+        require(players.length > 0, "No players in the lottery");
+
         uint randomIndex = getRandomNumber() % players.length;
+
+        // Calculate the fee (2.5% of the contract balance)
+        uint feeAmount = (address(this).balance * 25) / 1000;
+
+        // Transfer the fee to the ownerFeeAddress
+        payable(ownerFeeAddress).transfer(feeAmount);
+
+        // Transfer the winnings to the winner (entire remaining balance after fee deduction)
         players[randomIndex].transfer(address(this).balance);
+
+        // Add the winner to the list
         winners.push(players[randomIndex]);
+
+        // Increment lotteryId and reset players array
         lotteryId++;
         lotteryStart = block.timestamp;
         delete players;
