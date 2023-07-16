@@ -65,7 +65,7 @@ const LotteryInfo = () => {
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
   const handleEnter = async () => {
-    setAmount(""); // Reset amount to an empty string
+    setAmount("");
 
     try {
       notification({
@@ -73,7 +73,7 @@ const LotteryInfo = () => {
         type: "WARRNING",
         message: "Your request is being processed",
       });
-      write?.(); // Use the write function to trigger the contract transaction
+      write?.();
     } catch (error) {
       console.error("Error entering the lottery:", error);
     }
