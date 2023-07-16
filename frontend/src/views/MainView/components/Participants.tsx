@@ -16,6 +16,9 @@ const Participants = () => {
     abi: abi,
     functionName: "getPlayers",
     watch: true,
+    onSettled(data, error) {
+      console.log("Settled", { data, error });
+    },
   });
   const {
     data: amounts,
@@ -26,6 +29,9 @@ const Participants = () => {
     abi: abi,
     functionName: "getAmounts",
     watch: true,
+    onSettled(data, error) {
+      console.log("Settled", { data, error });
+    },
   });
 
   return (
