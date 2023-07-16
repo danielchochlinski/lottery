@@ -4,6 +4,7 @@
   border: 1px solid $primary-color;
   border-radius: $primary-radius;
   height: 60px;
+  min-height: 60px;
   box-sizing: border-box;
   display: flex;
   // background: $primary-background-color;
@@ -18,5 +19,12 @@
   }
   > div:last-of-type {
     gap: 20px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .container {
+    > div:first-of-type {
+      display: none;
+    }
   }
 }
