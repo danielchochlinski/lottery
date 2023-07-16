@@ -1,41 +1,35 @@
 import React, { useState } from "react";
 import styles from "./LotteryInfo.module.scss";
-import { useContractRead } from "wagmi";
+import { useContractEvent, useContractRead } from "wagmi";
 import contract_abi from "../../../assets/Lottery.json";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { parseEther } from "viem";
+import { converter } from "../../../helper/helper";
+import {
+  uniqueID,
+  useNotification,
+} from "../../../context/notifications/NotificationProvider";
 
 const { abi }: any = contract_abi;
 
 const LotteryInfo = () => {
   const [amount, setAmount] = useState<string>("");
-
-  const {
-    data: balance,
-    isError: balanceErrors,
-    isLoading: balanceIsLoading,
-  }: any = useContractRead({
+  const [error, setError] = useState<boolean>(false);
+  const notification = useNotification();
+  const { data: balance }: any = useContractRead({
     address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
     abi: abi,
     functionName: "getBalance",
     watch: true,
   });
-  const {
-    data: lotteryId,
-    isError: isLotteryIdError,
-    isLoading: isLotteryIdLoading,
-  }: any = useContractRead({
+  const { data: lotteryId }: any = useContractRead({
     address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
     abi: abi,
     functionName: "getLotteryId",
     watch: true,
   });
 
-  const {
-    data: winners,
-    isError: isWinnersError,
-    isLoading: isWinnersLoading,
-  }: any = useContractRead({
+  const { data: winners }: any = useContractRead({
     address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
     abi: abi,
     functionName: "getWinners",
@@ -49,36 +43,68 @@ const LotteryInfo = () => {
     value: parseEther(amount),
     onSuccess(data) {
       console.log("Success", data);
+      setError(false);
+      // notification({
+      //   id: uniqueID(),
+      //   type: "SUCCESS",
+      //   message: "Congratulations you have entered the lottery",
+      // });
+      setAmount(""); // Reset amount to an empty string after successful transaction
+    },
+    onError(data) {
+      setError(true);
+    },
+    onSettled(data, error) {
+      // notification({
+      //   id: uniqueID(),
+      //   type: ,
+      //   message: response.data.message,
+      // });
     },
   });
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
   const handleEnter = async () => {
+    setAmount(""); // Reset amount to an empty string
+
     try {
-      await write?.();
+      notification({
+        id: uniqueID(),
+        type: "WARRNING",
+        message: "Your request is being processed",
+      });
+      write?.(); // Use the write function to trigger the contract transaction
     } catch (error) {
       console.error("Error entering the lottery:", error);
     }
   };
-  console.log(Number(lotteryId));
-  console.log(winners);
-  console.log(Number(balance));
-
+  useContractEvent({
+    address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
+    abi: abi,
+    eventName: "EnteredLottery",
+    listener() {
+      notification({
+        id: uniqueID(),
+        type: "SUCCESS",
+        message: "Congratulations you have entered the lottery",
+      });
+    },
+  });
   return (
     <div className={styles.container}>
-      <span>Lottery: #{lotteryId}</span>
-      <span>Previous Winner</span>
-      <input
-        type="text"
-        placeholder="amount"
-        onChange={(e) => setAmount(e.target.value)}
-      />
-      <button
-        //    disabled={!write}
-        onClick={() => handleEnter()}
-      >
-        Enter Lottery
-      </button>
+      <div className={styles.inner_container}>
+        <span>Lottery: #{converter(lotteryId)}</span>
+        <span>Prize amount: {converter(balance)} ETH</span>
+        {winners?.length !== 0 ? <span>Previous Winner</span> : <></>}
+        <input
+          type="number"
+          placeholder="enter amount"
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <button disabled={!write} onClick={() => handleEnter()}>
+          {error ? "Please check you balance" : "Enter Lottery"}
+        </button>
+      </div>
     </div>
   );
 };

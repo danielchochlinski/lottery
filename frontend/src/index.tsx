@@ -10,6 +10,7 @@ import {
 import { Web3Modal } from "@web3modal/react";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { sepolia } from "wagmi/chains";
+import NotificationProvider from "./context/notifications/NotificationProvider";
 
 const chains = [sepolia];
 const projectId = process.env.REACT_APP_PROJECT_ID || "";
@@ -27,9 +28,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <>
     <WagmiConfig config={wagmiConfig}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <NotificationProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </NotificationProvider>
     </WagmiConfig>
     <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
   </>

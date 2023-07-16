@@ -2,11 +2,14 @@
 pragma solidity 0.8.20;
 
 contract Lottery {
+    event EnteredLottery(address indexed player, uint256 amount);
+
     //state
     address public owner;
     address public ownerFeeAddress;
     address payable[] public players;
     address[] public winners;
+    uint256[] public amounts;
     uint public lotteryId;
     uint public lotteryStart;
 
@@ -27,6 +30,9 @@ contract Lottery {
         );
 
         players.push(payable(msg.sender));
+        amounts.push(msg.value);
+
+        emit EnteredLottery(msg.sender, msg.value);
 
         if (block.timestamp >= lotteryStart + 30 days) {
             pickWinner();
@@ -70,6 +76,11 @@ contract Lottery {
         lotteryId++;
         lotteryStart = block.timestamp;
         delete players;
+        delete amounts;
+    }
+
+    function getAmounts() public view returns (uint256[] memory) {
+        return amounts;
     }
 
     function checkTime() public view returns (uint) {

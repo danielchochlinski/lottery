@@ -1,15 +1,19 @@
 import React from "react";
-import { useWeb3Modal, Web3Button } from "@web3modal/react";
-import { useAccount } from "wagmi";
+import { Web3Button } from "@web3modal/react";
+
+import { Web3NetworkSwitch } from "@web3modal/react";
+
 import styles from "./Navbar.module.scss";
 const Navbar = () => {
-  const { open, close } = useWeb3Modal();
-
-  const { address, isConnecting, isDisconnected } = useAccount();
-
   return (
     <div className={styles.container}>
-      <Web3Button />
+      <div>
+        <span>Some Awesome Lottery</span>
+      </div>
+      <div>
+        <Web3Button />
+        <Web3NetworkSwitch />
+      </div>
     </div>
   );
 };

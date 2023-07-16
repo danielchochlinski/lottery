@@ -1,7 +1,19 @@
+@import "../../../App.scss";
 .container {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
   width: 100%;
-  margin: 2rem;
+  max-width: 400px;
+  margin: 2rem auto;
+  height: fit-content;
+  border: 1px solid $primary-color;
+  border-radius: $primary-radius;
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  .inner_container {
+    padding: 1rem;
+    max-width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }

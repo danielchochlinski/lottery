@@ -6,6 +6,17 @@
   height: 60px;
   box-sizing: border-box;
   display: flex;
-
-  background: $primary-background-color;
+  // background: $primary-background-color;
+  background-image: url("../../assets/bg3.jpeg");
+  background-position: top;
+  gap: 10px;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  > div:last-of-type {
+    gap: 20px;
+  }
 }
