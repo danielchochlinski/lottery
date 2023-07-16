@@ -1,0 +1,128 @@
+$primary-color: rgba(84, 84, 84, 0.6);
+$primary-radius: 16px;
+$primary-background-color: linear-gradient(to right, black, #333, black);
+
+.App {
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  // background-image: url("./assets/bg3.jpeg");
+  // background-color: black;
+  background: $primary-background-color;
+  color: white;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+input {
+  border: 1px solid transparent;
+  border-radius: $primary-radius;
+  outline: none;
+  padding: 0.3rem;
+  text-align: center;
+  transition: 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+}
+button {
+  padding: 0.3rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: $primary-radius;
+  transition: 0.3s ease-in-out;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.notification_item {
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); */
+  background-color: #ffffff;
+  position: relative;
+  z-index: 909999;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 0 20px 0;
+  animation: SlideLeft 0.4s;
+  animation-fill-mode: forwards;
+  width: 300px;
+  color: black;
+}
+@media screen and (max-width: 767px) {
+  .notification_item {
+    width: 250px;
+  }
+}
+.notification_item.success {
+  box-shadow: 0 0 10px rgb(99, 204, 171);
+}
+
+.notification_item.error {
+  box-shadow: 0 0 10px rgba(255, 4, 4, 1);
+}
+
+.notification_item.warning {
+  box-shadow: 0 0 10px rgb(211, 200, 34);
+}
+
+@keyframes SlideLeft {
+  0% {
+    margin-left: 120%;
+  }
+
+  100% {
+    margin-left: 0;
+  }
+}
+
+@keyframes SlideRight {
+  0% {
+    margin-left: 0;
+  }
+
+  100% {
+    margin-left: 120%;
+  }
+}
+
+.notification_item.exit {
+  animation: SlideRight 0.4s;
+  animation-fill-mode: forwards;
+}
+
+.notification_item p {
+  margin: 0;
+  padding: 10px;
+}
+
+.notification_item .bar {
+  height: 10px;
+}
+
+.notification_item.success .bar {
+  background-color: rgb(9, 174, 66);
+}
+
+.notification_item.error .bar {
+  background-color: rgb(190, 7, 7);
+}
+.notification_item.warning .bar {
+  background-color: rgb(190, 178, 7);
+}
+
+.notification_wrapper {
+  position: fixed;
+  top: 80px;
+  right: 10px;
+  width: 300px;
+  z-index: 99;
+}

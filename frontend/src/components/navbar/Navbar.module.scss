@@ -1,0 +1,30 @@
+@import "../../App.scss";
+.container {
+  width: 100%;
+  border: 1px solid $primary-color;
+  border-radius: $primary-radius;
+  height: 60px;
+  min-height: 60px;
+  box-sizing: border-box;
+  display: flex;
+  // background: $primary-background-color;
+  background-image: url("../../assets/bg3.jpeg");
+  background-position: top;
+  gap: 10px;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  > div:last-of-type {
+    gap: 20px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .container {
+    > div:first-of-type {
+      display: none;
+    }
+  }
+}
