@@ -49,7 +49,7 @@ const LotteryInfo = () => {
       //   type: "SUCCESS",
       //   message: "Congratulations you have entered the lottery",
       // });
-      setAmount(""); // Reset amount to an empty string after successful transaction
+      setAmount("");
     },
     onError(data) {
       setError(true);
