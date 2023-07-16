@@ -63,7 +63,7 @@ const LotteryInfo = () => {
     },
   });
 
-  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+  const { write } = useContractWrite(config);
   const handleEnter = async () => {
     setAmount("");
 
