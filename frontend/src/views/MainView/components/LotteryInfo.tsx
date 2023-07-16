@@ -25,9 +25,6 @@ const LotteryInfo = () => {
     abi: abi,
     functionName: "getBalance",
     watch: true,
-    onSettled(data, error) {
-      console.log("Settled", { data, error });
-    },
   });
   const {
     data: lotteryId,
@@ -38,9 +35,6 @@ const LotteryInfo = () => {
     abi: abi,
     functionName: "getLotteryId",
     watch: true,
-    onSettled(data, error) {
-      console.log("Settled", { data, error });
-    },
   });
 
   const {
@@ -52,9 +46,6 @@ const LotteryInfo = () => {
     abi: abi,
     functionName: "getWinners",
     watch: true,
-    onSettled(data, error) {
-      console.log("Settled", { data, error });
-    },
   });
 
   const { config } = usePrepareContractWrite({
