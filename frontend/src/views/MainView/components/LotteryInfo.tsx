@@ -16,20 +16,32 @@ const LotteryInfo = () => {
   const [amount, setAmount] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
   const notification = useNotification();
-  const { data: balance }: any = useContractRead({
+  const {
+    data: balance,
+    isError: isBalanceError,
+    isLoading: isErrorLoading,
+  }: any = useContractRead({
     address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
     abi: abi,
     functionName: "getBalance",
     watch: true,
   });
-  const { data: lotteryId }: any = useContractRead({
+  const {
+    data: lotteryId,
+    isError: isLotteryIdError,
+    isLoading: isLotteryIdLoading,
+  }: any = useContractRead({
     address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
     abi: abi,
     functionName: "getLotteryId",
     watch: true,
   });
 
-  const { data: winners }: any = useContractRead({
+  const {
+    data: winners,
+    isError: isWinnersError,
+    isLoading: isWinnersLoading,
+  }: any = useContractRead({
     address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
     abi: abi,
     functionName: "getWinners",
@@ -44,26 +56,14 @@ const LotteryInfo = () => {
     onSuccess(data) {
       console.log("Success", data);
       setError(false);
-      // notification({
-      //   id: uniqueID(),
-      //   type: "SUCCESS",
-      //   message: "Congratulations you have entered the lottery",
-      // });
-      setAmount("");
     },
     onError(data) {
       setError(true);
     },
-    onSettled(data, error) {
-      // notification({
-      //   id: uniqueID(),
-      //   type: ,
-      //   message: response.data.message,
-      // });
-    },
   });
 
   const { write } = useContractWrite(config);
+
   const handleEnter = async () => {
     setAmount("");
 
@@ -73,11 +73,12 @@ const LotteryInfo = () => {
         type: "WARRNING",
         message: "Your request is being processed",
       });
-      write?.();
+      await write?.();
     } catch (error) {
       console.error("Error entering the lottery:", error);
     }
   };
+
   useContractEvent({
     address: `0x${process.env.REACT_APP_CONTRACT_ADDRESS}` || "",
     abi: abi,
@@ -90,6 +91,7 @@ const LotteryInfo = () => {
       });
     },
   });
+
   return (
     <div className={styles.container}>
       <div className={styles.inner_container}>

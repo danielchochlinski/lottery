@@ -37,16 +37,16 @@ const Participants = () => {
         <div className={styles.inner_container}>
           <h4>User Address</h4>
           <div>
-            {players?.map((el: string) => (
-              <span>{formatAddress(el)}</span>
+            {players?.map((el: string, i: number) => (
+              <span key={`${el}+user${i}`}>{formatAddress(el)}</span>
             ))}
           </div>
         </div>
         <div className={styles.inner_container}>
           <h4>Amount</h4>
           <div>
-            {amounts?.map((el: string) => (
-              <span>{converter(el)} ETH</span>
+            {amounts?.map((el: string, i: number) => (
+              <span key={`${el}+amount${i}`}>{converter(el)} ETH</span>
             ))}
           </div>
         </div>
