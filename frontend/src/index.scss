@@ -1,0 +1,194 @@
+body,
+html {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("./assets/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  background-position: center;
+}
+
+.click-button {
+  color: white;
+  background-color: #f2570e;
+  border: black solid 10px;
+  font-size: 40px;
+  font-family: "Badabb", sans-serif;
+  padding: 10px 30px;
+  border-radius: 60px;
+  transition-duration: 300ms;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
+.content-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .title {
+    display: flex;
+    justify-content: center;
+
+    &__button {
+      position: absolute;
+      right: 0;
+      margin: 20px;
+
+      button {
+        @extend .click-button;
+        font-size: 25px;
+      }
+
+      .connected {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        position: relative;
+        span {
+          display: block;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+  }
+  .connected,
+  .connect-button {
+    position: relative;
+    // height: 100%;
+  }
+  .connected > button > div,
+  .connect-button > button > div {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+  .column {
+    width: 100%;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 90px;
+    color: white;
+    letter-spacing: 7px;
+    text-shadow: rgb(40, 21, 73) 5px 0px 0px, rgb(40, 21, 73) 4.90033px 0.993347px 0px,
+      rgb(40, 21, 73) 4.60531px 1.94709px 0px, rgb(40, 21, 73) 4.12668px 2.82321px 0px,
+      rgb(40, 21, 73) 3.48353px 3.58678px 0px, rgb(40, 21, 73) 2.70151px 4.20736px 0px,
+      rgb(40, 21, 73) 1.81179px 4.6602px 0px, rgb(40, 21, 73) 0.849836px 4.92725px 0px,
+      rgb(40, 21, 73) -0.145998px 4.99787px 0px, rgb(40, 21, 73) -1.13601px 4.86924px 0px,
+      rgb(40, 21, 73) -2.08073px 4.54649px 0px, rgb(40, 21, 73) -2.94251px 4.04248px 0px,
+      rgb(40, 21, 73) -3.68697px 3.37732px 0px, rgb(40, 21, 73) -4.28444px 2.57751px 0px,
+      rgb(40, 21, 73) -4.71111px 1.67494px 0px, rgb(40, 21, 73) -4.94996px 0.7056px 0px,
+      rgb(40, 21, 73) -4.99147px -0.291871px 0px, rgb(40, 21, 73) -4.83399px -1.27771px 0px,
+      rgb(40, 21, 73) -4.48379px -2.2126px 0px, rgb(40, 21, 73) -3.95484px -3.05929px 0px,
+      rgb(40, 21, 73) -3.26822px -3.78401px 0px, rgb(40, 21, 73) -2.4513px -4.35788px 0px,
+      rgb(40, 21, 73) -1.53666px -4.75801px 0px, rgb(40, 21, 73) -0.560763px -4.96845px 0px,
+      rgb(40, 21, 73) 0.437495px -4.98082px 0px, rgb(40, 21, 73) 1.41831px -4.79462px 0px,
+      rgb(40, 21, 73) 2.34258px -4.41727px 0px, rgb(40, 21, 73) 3.17346px -3.86382px 0px,
+      rgb(40, 21, 73) 3.87783px -3.15633px 0px, rgb(40, 21, 73) 4.4276px -2.32301px 0px,
+      rgb(40, 21, 73) 4.80085px -1.39708px 0px, rgb(40, 21, 73) 4.98271px -0.415447px 0px;
+    @media screen and (max-width: 1200px) {
+      margin-top: 200px;
+      font-size: 50px;
+    }
+  }
+
+  .content-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    max-width: 1000px;
+    margin: 120px auto;
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+      gap: 30px;
+      margin: 20px auto 80px;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &:nth-child(5) {
+        @media screen and (max-width: 1620px) {
+          display: none;
+        }
+      }
+      &:nth-child(4) {
+        @media screen and (max-width: 1300px) {
+          display: none;
+        }
+      }
+
+      img {
+        max-width: 230px;
+      }
+
+      button {
+        @extend .click-button;
+      }
+
+      span {
+        font-size: 50px;
+        color: white;
+        text-shadow: rgb(40, 21, 73) 5px 0px 0px, rgb(40, 21, 73) 4.90033px 0.993347px 0px,
+          rgb(40, 21, 73) 4.60531px 1.94709px 0px, rgb(40, 21, 73) 4.12668px 2.82321px 0px,
+          rgb(40, 21, 73) 3.48353px 3.58678px 0px, rgb(40, 21, 73) 2.70151px 4.20736px 0px,
+          rgb(40, 21, 73) 1.81179px 4.6602px 0px, rgb(40, 21, 73) 0.849836px 4.92725px 0px,
+          rgb(40, 21, 73) -0.145998px 4.99787px 0px, rgb(40, 21, 73) -1.13601px 4.86924px 0px,
+          rgb(40, 21, 73) -2.08073px 4.54649px 0px, rgb(40, 21, 73) -2.94251px 4.04248px 0px,
+          rgb(40, 21, 73) -3.68697px 3.37732px 0px, rgb(40, 21, 73) -4.28444px 2.57751px 0px,
+          rgb(40, 21, 73) -4.71111px 1.67494px 0px, rgb(40, 21, 73) -4.94996px 0.7056px 0px,
+          rgb(40, 21, 73) -4.99147px -0.291871px 0px, rgb(40, 21, 73) -4.83399px -1.27771px 0px,
+          rgb(40, 21, 73) -4.48379px -2.2126px 0px, rgb(40, 21, 73) -3.95484px -3.05929px 0px,
+          rgb(40, 21, 73) -3.26822px -3.78401px 0px, rgb(40, 21, 73) -2.4513px -4.35788px 0px,
+          rgb(40, 21, 73) -1.53666px -4.75801px 0px, rgb(40, 21, 73) -0.560763px -4.96845px 0px,
+          rgb(40, 21, 73) 0.437495px -4.98082px 0px, rgb(40, 21, 73) 1.41831px -4.79462px 0px,
+          rgb(40, 21, 73) 2.34258px -4.41727px 0px, rgb(40, 21, 73) 3.17346px -3.86382px 0px,
+          rgb(40, 21, 73) 3.87783px -3.15633px 0px, rgb(40, 21, 73) 4.4276px -2.32301px 0px,
+          rgb(40, 21, 73) 4.80085px -1.39708px 0px, rgb(40, 21, 73) 4.98271px -0.415447px 0px;
+      }
+    }
+  }
+
+  .logo {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    width: 180px;
+    @media screen and (max-width: 1024px) {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 60px;
+    }
+
+    img {
+      max-width: 160px;
+      width: 100%;
+    }
+  }
+}

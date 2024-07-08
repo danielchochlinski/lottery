@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Badabb';
+    src: url('@/assets/fonts/badabb.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Badabb', sans-serif;
+}
